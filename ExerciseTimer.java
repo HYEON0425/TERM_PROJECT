@@ -55,47 +55,6 @@ public class ExerciseTimer extends JFrame {
         add(resetButton);
     }
 
-    // 타이머 시작 메소드
-    private void startTimer() {
-        if (timer != null) {
-            timer.cancel();
-        }
-
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (secondsLeft > 0) {
-                    secondsLeft--;
-                    SwingUtilities.invokeLater(() -> {
-                        timeLabel.setText(formatTime(secondsLeft));
-                    });
-                } else {
-                    stopTimer();
-                    JOptionPane.showMessageDialog(ExerciseTimer.this,
-                            "운동 시간이 완료되었습니다!", "알림",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        }, 1000, 1000); // 1초 딜레이, 1초마다 실행
-    }
-
-    // 타이머 정지 메소드
-    private void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
-
-    // 타이머 리셋 메소드
-    private void resetTimer() {
-        stopTimer();
-        secondsLeft = 60; // 기본값으로 리셋
-        timeLabel.setText(formatTime(secondsLeft));
-        startButton.setText("시작");
-    }
-
     // 시간 포맷팅 메소드 (MM:SS 형식)
     private String formatTime(int seconds) {
         int minutes = seconds / 60;
